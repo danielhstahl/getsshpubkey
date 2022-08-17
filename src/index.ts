@@ -18,40 +18,48 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: 'getsshpubkey:plugin',
   autoStart: true,
   optional: [ISettingRegistry, ILauncher],
-  activate: (app: JupyterFrontEnd, settingRegistry: ISettingRegistry | null, launcher: ILauncher | null,) => {
+  activate: (
+    app: JupyterFrontEnd,
+    settingRegistry: ISettingRegistry | null,
+    launcher: ILauncher | null
+  ) => {
     console.log('JupyterLab extension getsshpubkey is activated!');
     const { commands } = app;
     const command = CommandIDs.createNew;
 
     commands.addCommand(command, {
-      label: (args) => (args['isPalette'] ? 'SSH Key' : 'SSH Key'),
+      label: args => (args['isPalette'] ? 'SSH Key' : 'SSH Key'),
       caption: 'SSH Key',
-      icon: (args) => undefined, //(args['isPalette'] ? null : icon),
-      execute: async (args) => {
-        requestAPI<any>('get_ssh_pub_key', { method: 'GET', })
-          .then(data => showDialog({
-            title: "Public SSH key",
-            body: data.data, //new RenameHandler(oldPath),
-            focusNodeSelector: 'input',
-            buttons: [
-              Dialog.cancelButton({ label: 'Cancel' }),
-              Dialog.okButton({ label: 'Copy' })//add copy not rename
-            ]
-          }).then(result => {
-            console.log(result)
-            if (!result.button.accept) {
-              return null;
-            }
-            Clipboard.copyToSystem(data.data)
-          })).then(result => showDialog({
-            body: "Copied!",
-          })
-          ).catch(reason => {
+      icon: args => undefined, //(args['isPalette'] ? null : icon),
+      execute: async args => {
+        requestAPI<any>('get_ssh_pub_key', { method: 'GET' })
+          .then(data =>
+            showDialog({
+              title: 'Public SSH key',
+              body: data.data, //new RenameHandler(oldPath),
+              focusNodeSelector: 'input',
+              buttons: [
+                Dialog.cancelButton({ label: 'Cancel' }),
+                Dialog.okButton({ label: 'Copy' }) //add copy not rename
+              ]
+            }).then(result => {
+              console.log(result);
+              if (!result.button.accept) {
+                return null;
+              }
+              Clipboard.copyToSystem(data.data);
+            })
+          )
+          .then(result =>
+            showDialog({
+              body: 'Copied!'
+            })
+          )
+          .catch(reason => {
             console.error(
               `The getsshpubkey server extension appears to be missing.\n${reason}`
             );
-          })
-
+          });
       }
     });
 
@@ -60,7 +68,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       launcher.add({
         command,
         category: 'Other',
-        rank: 2,
+        rank: 2
       });
     }
 
@@ -74,8 +82,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
           console.error('Failed to load settings for getsshpubkey.', reason);
         });
     }
-
-
   }
 };
 
