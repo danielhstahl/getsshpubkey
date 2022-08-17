@@ -1,6 +1,6 @@
 # getsshpubkey
 
-[![Github Actions Status](https://github.com/github_username/getsshpubkey/workflows/Build/badge.svg)](https://github.com/github_username/getsshpubkey/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/danielhstahl/getsshpubkey/workflows/Build/badge.svg)](https://github.com/danielhstahl/getsshpubkey/actions/workflows/build.yml)
 Gets public ssh key
 
 This extension is composed of a Python package named `getsshpubkey`
