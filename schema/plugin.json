@@ -1,0 +1,8 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "getsshpubkey",
+  "description": "getsshpubkey settings.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}
