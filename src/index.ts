@@ -50,7 +50,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
               Clipboard.copyToSystem(data.data);
               return showDialog({
                 body: 'Copied!'
-              })
+              });
             })
           )
           .catch(reason => {
