@@ -48,11 +48,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 return null;
               }
               Clipboard.copyToSystem(data.data);
-            })
-          )
-          .then(result =>
-            showDialog({
-              body: 'Copied!'
+              return showDialog({
+                body: 'Copied!'
+              })
             })
           )
           .catch(reason => {
