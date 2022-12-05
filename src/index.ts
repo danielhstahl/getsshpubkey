@@ -36,7 +36,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
           .then(data =>
             showDialog({
               title: 'Public SSH key',
-              body: data.data, //new RenameHandler(oldPath),
+              body: `SSH key, for use in Github.  See https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account. 
+              
+              ${data.ssh}
+              
+              RSA key, for use in Snowflake.  Run \`call SET_RSA_PUBLIC_KEY('${data.rsa
+                .split('\n')
+                .slice(1, -1)}')\` from a Snowflake worksheet.`, //new RenameHandler(oldPath),
               focusNodeSelector: 'input',
               buttons: [
                 Dialog.cancelButton({ label: 'Cancel' }),
