@@ -40,8 +40,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
               
               ${data.ssh}
               
-              RSA key, for use in Snowflake.  Run \`call SET_RSA_PUBLIC_KEY('${data.rsa.split("\n").slice(1, -1)}')\` from a Snowflake worksheet.`
-              , //new RenameHandler(oldPath),
+              RSA key, for use in Snowflake.  Run \`call SET_RSA_PUBLIC_KEY('${data.rsa
+                .split('\n')
+                .slice(1, -1)}')\` from a Snowflake worksheet.`, //new RenameHandler(oldPath),
               focusNodeSelector: 'input',
               buttons: [
                 Dialog.cancelButton({ label: 'Cancel' }),
