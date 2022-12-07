@@ -6,8 +6,6 @@ import tornado
 import os
 
 class RouteHandler(APIHandler):
-    def __init__(self, *args, **kwargs):
-        self.extra = kwargs.pop('extra')
     # The following decorator should be present on all verb methods (head, get, post,
     # patch, put, delete, options) to ensure only authorized user can request the
     # Jupyter server
@@ -26,5 +24,5 @@ def setup_handlers(web_app):
     base_url = web_app.settings["base_url"]
     route_pattern = url_path_join(base_url, "getsshpubkey", "get_ssh_pub_key")
     
-    handlers = [(route_pattern, RouteHandler, {"extra": web_app.extra})]
+    handlers = [(route_pattern, RouteHandler)]
     web_app.add_handlers(host_pattern, handlers)
