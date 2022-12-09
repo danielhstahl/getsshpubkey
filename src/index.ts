@@ -5,32 +5,34 @@ import {
 import { ILauncher } from '@jupyterlab/launcher';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { Dialog, showDialog, Clipboard } from '@jupyterlab/apputils';
-import React from "react"
+import React from 'react';
 
 function ShowKeys(sshkey: string, rsakey: string) {
-  return React.createElement("div", { sshkey, rsakey },
-    React.createElement("h4", null, "SSH key, for use in Github"),
-    "See ",
-    React.createElement("a",
+  return React.createElement(
+    'div',
+    { sshkey, rsakey },
+    React.createElement('h4', null, 'SSH key, for use in Github'),
+    'See ',
+    React.createElement(
+      'a',
       {
-        href: "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account",
-        target: "_blank",
-        style: { color: "grey" }
+        href: 'https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account',
+        target: '_blank',
+        style: { color: 'grey' }
       },
-      "adding ssh key"
+      'adding ssh key'
     ),
-    ".",
-    React.createElement("br"),
-    React.createElement("br"),
+    '.',
+    React.createElement('br'),
+    React.createElement('br'),
 
     sshkey,
-    React.createElement("br"),
-    React.createElement("br"),
-    React.createElement("h4", null, "RSA key, for use in Snowflake"),
+    React.createElement('br'),
+    React.createElement('br'),
+    React.createElement('h4', null, 'RSA key, for use in Snowflake'),
     `Run \`call SET_RSA_PUBLIC_KEY('${rsakey
       .split('\n')
       .slice(1, -2)}')\` from a Snowflake worksheet.`
-
   );
 }
 //const myWidget = ReactWidget.create(MyComponent());
