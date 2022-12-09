@@ -42,6 +42,9 @@ import { requestAPI } from './handler';
 namespace CommandIDs {
   export const createNew = 'getsshpubkey:getssh';
 }
+
+const COPY_SSH_LABEL = 'Copy SSH';
+const COPY_RSA_LABEL = 'Copy RSA';
 /**
  * Initialization data for the getsshpubkey extension.
  */
@@ -71,14 +74,21 @@ const plugin: JupyterFrontEndPlugin<void> = {
               focusNodeSelector: 'input',
               buttons: [
                 Dialog.cancelButton({ label: 'Cancel' }),
-                Dialog.okButton({ label: 'Copy' }) //add copy not rename
+                Dialog.okButton({ label: COPY_SSH_LABEL }), //add copy not rename
+                Dialog.okButton({ label: COPY_RSA_LABEL }) //add copy not rename
               ]
             }).then(result => {
               console.log(result);
               if (!result.button.accept) {
                 return null;
               }
-              Clipboard.copyToSystem(data.data);
+              if (result.button.label === COPY_SSH_LABEL) {
+                Clipboard.copyToSystem(data.ssh);
+              } else if (result.button.label === COPY_RSA_LABEL) {
+                Clipboard.copyToSystem(data.rsa);
+              } else {
+                return null;
+              }
               return showDialog({
                 body: 'Copied!'
               });
