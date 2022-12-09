@@ -1,6 +1,6 @@
 {
   "name": "getsshpubkey",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Gets public ssh key",
   "keywords": [
     "jupyter",
