@@ -1,22 +1,20 @@
 name: Build
 
-on:
-  push:
-    branches: master
-  pull_request:
-    branches: '*'
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-20.04
-
+    strategy:
+      matrix:
+        python_version: ['3.8'] #, '3.10']
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.8'
+        python-version: ${{ matrix.python_version }}
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
@@ -55,19 +53,3 @@ jobs:
         pip install build
         python -m build
         pip uninstall -y "getsshpubkey" jupyterlab
-
-    - name: Upload extension packages
-      uses: actions/upload-artifact@v2
-      with:
-        name: extension-artifacts
-        path: dist/getsshpubkey*
-        if-no-files-found: error
-
-    - name: Publish a Python distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.PYPI_TOKEN }}
-
-    - uses: JS-DevTools/npm-publish@v1
-      with:
-        token: ${{ secrets.NPM_TOKEN }}
