@@ -30,7 +30,7 @@ function ShowKeys(sshkey: string, rsakey: string) {
     React.createElement('br'),
     React.createElement('br'),
     React.createElement('h4', null, 'RSA key, for use in Snowflake'),
-    `Run \`call SET_RSA_PUBLIC_KEY('${rsakey
+    `Run \`call PRODUCTION.PUBLIC.SET_RSA_PUBLIC_KEY('${rsakey
       .split('\n')
       .slice(1, -2)}')\` from a Snowflake worksheet.`
   );
